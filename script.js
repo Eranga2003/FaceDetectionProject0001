@@ -1,5 +1,9 @@
 const video = document.getElementById("video");
 
+
+
+
+
 function webCam() {
     navigator.mediaDevices.getUserMedia({
         video: true,
@@ -14,4 +18,10 @@ function webCam() {
     });
 }
 
-webCam();
+Promise.all ([
+    FaceDetection.nets.tinyFaceDetector.loadFromUrl("/models"),
+    FaceDetection.nets.faceLandmark68Net.loadFromUrl("/models")
+    
+
+]).then(webCam)
+
